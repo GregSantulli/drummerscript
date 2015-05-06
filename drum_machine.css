@@ -50,7 +50,7 @@ body{
   padding: 10px;
   overflow: hidden;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 20px;
   width: 1080px;
   text-align: right;
   box-shadow: 5px 5px 10px black
@@ -121,12 +121,16 @@ body{
   letter-spacing: 1px;
 }
 
+.directions{
+  margin-top: 10px
+}
+
 .footer{
   margin: auto;
   color: white;
   width: 50%;
   text-align: center;
-  margin-top: 70px;
+  margin-top: 20px;
   text-shadow:1px 1px 5px black;
   letter-spacing: 1px;
 }
@@ -144,4 +148,30 @@ body{
 
 .clear{
   margin-top: 50px;
+}
+
+
+a{
+  text-decoration: none;
+  color: white;
+}
+
+a:hover{
+  color: white;
+  text-decoration: none;
+
+}
+
+a:visited{
+  color: white;
+  text-decoration: none;
+}
+
+.github_logo{
+  height: 30px;
+
+}
+
+.repo_link{
+  margin-top: 20px;
 }
