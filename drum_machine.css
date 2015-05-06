@@ -1,0 +1,147 @@
+
+body{
+  background-image: url("http://www.ashtangabutterfly.com/images/wood-grain-background-2.jpg");
+  -webkit-font-smoothing:antialiased;
+}
+
+.pad {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  box-shadow: 0px 0px 2px black;
+  margin-left: 4px;
+}
+
+.gain {
+    width: 70px;
+    display: inline-block;
+
+}
+
+.instrument_label {
+  display:inline-block;
+  text-align: right;
+  vertical-align: top;
+  width: 100px;
+  border-radius: 2px;
+  text-align: center;
+}
+
+.step_number_container{
+  margin-bottom: 5px;
+}
+
+.bar {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  color: white;
+  border-radius: 2px;
+  text-shadow: 2px 2px 5px black;
+}
+
+.pad_container {
+  background-image: url("http://fc08.deviantart.net/fs29/i/2008/059/9/1/metal_texture_7_by_wojtar_stock.jpg");
+  border: 1px solid gray;
+  border-style: outset;
+  border-radius: 10px;
+  padding: 10px;
+  overflow: hidden;
+  margin: auto;
+  margin-top: 50px;
+  width: 1080px;
+  text-align: right;
+  box-shadow: 5px 5px 10px black
+
+}
+
+.active{
+   box-shadow: 0px 0px 5px red
+}
+
+
+.kick1, .kick2, .kick3 {
+  background-color: #6ECFF6;
+}
+
+.snare1, .snare2 {
+  background-color: #F7977A;
+}
+
+.clap1, .clap2 {
+  background-color: #FDC68A;
+}
+
+.hihat1 , .hihat2 {
+  background-color: #C4DF9B;
+}
+
+.openhat1, .openhat2 {
+  background-color: #A2D39C;
+}
+
+
+
+.control {
+  float: left;
+  position: absolute;
+  margin-left: 20px;
+  margin-top: 30px;
+}
+
+.pad_line {
+  display: inline-block;
+  position: absolute;
+  border-left: 1px solid white;
+  height: 300px;
+  width: 1px;
+}
+
+
+.title {
+  font-size: 3.5em;
+  margin: auto;
+  margin-top: 50px;
+  text-align: center;
+  color: white;
+  text-shadow:3px 3px 10px black;
+  letter-spacing: 1px;
+  font-family: 'Permanent Marker', cursive;
+}
+
+
+.description{
+  margin: auto;
+  color: white;
+  width: 50%;
+  text-align: center;
+  text-shadow:3px 3px 5px black;
+  letter-spacing: 1px;
+}
+
+.footer{
+  margin: auto;
+  color: white;
+  width: 50%;
+  text-align: center;
+  margin-top: 70px;
+  text-shadow:1px 1px 5px black;
+  letter-spacing: 1px;
+}
+
+.btn{
+  margin-top: 10px;
+  width: 100%;
+}
+
+.bpm-label{
+  margin-top: 20px;
+  color: white;
+  text-shadow:1px 1px 3px black;
+}
+
+.clear{
+  margin-top: 50px;
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="drum_machine.css">
+  <link href='https://fonts.googleapis.com/css?family=Permanent+Marker' rel='stylesheet' type='text/css'>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
+  <script src="drum_machine.js"></script>
+
+  <script id="step_number_template" type="text/x-handlebars-template">
+    <div class="bar" id="{{number}}">{{number}}</div>
+  </script>
+
+  <script id="step_number_template" type="text/x-handlebars-template">
+    <div class="bar" id="{{number}}">{{number}}</div>
+  </script>
+
+  <script id="track_template" type="text/x-handlebars-template">
+    {{#each sounds}}
+      <div>
+        <form class="gain" id="{{name}}">
+          <input class="gain" type="range" value=".8" name="gain" min="0" max="1" step="0.05">
+        </form>
+        <span class="instrument_label {{name}}">{{name}}</span>
+        <span class="{{name}}_pads"></span>
+      </div>
+    {{/each}}
+  </script>
+
+</head>
+
+<body>
+  <div class="title">
+    DrummerScript
+  </div>
+
+  <div class="description">
+    A drum sequencer built using the Web Audio API
+  </div>
+
+  <div class="pad_container">
+    <div class="arrow-right control">
+      <div>
+        <button class="play btn btn-default">PLAY</button>
+      </div>
+      <div>
+        <button class="stop btn btn-default">STOP</button>
+      </div>
+      <div class="bpm-label text-center">
+        BPM
+      </div>
+      <div class="bpm">
+        <input class="bpm form-control" type="number" name="bpm" min="40" max="200" value="128">
+      </div>
+      <!--  <div>
+        <button class="clear btn btn-default">CLEAR</button>
+      </div> -->
+    </div>
+
+    <div class="step_number_container">
+    </div>
+
+    <div id="instrument_container">
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Developed by Greg Santulli using JavaScript, jQuery and the Web Audio API.
+  </div>
+
+
+</body>
+
+</html>
