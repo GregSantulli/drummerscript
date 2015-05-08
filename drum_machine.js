@@ -63,7 +63,7 @@ function playSound(audio){
 }
 
 
-var tempo = 128;
+var tempo = 100;
 var rhythmIndex = 1;
 var playing = false;
 var sixteenthNoteTime;
@@ -169,11 +169,9 @@ function gainChangeListener(){
 
 function movePlayhead(index){
   $('.bar').css({
-    'color':'white',
     'background-color':'',
   });
   $('#'+ index).css({
-    'color':'',
     'background-color':'red',
   });
 }
