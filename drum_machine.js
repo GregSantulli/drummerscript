@@ -63,7 +63,7 @@ function playSound(audio){
 }
 
 
-var tempo = 128;
+var tempo = 100;
 var rhythmIndex = 1;
 var playing = false;
 var sixteenthNoteTime;
@@ -100,7 +100,7 @@ function playCurrentIndex(){
 };
 
 function progressRhythm(){
-  if(rhythmIndex < 32){
+  if(rhythmIndex < 16){
     rhythmIndex++
   }else{
     rhythmIndex = 1
@@ -112,7 +112,6 @@ function stop(){
   playing = false
   rhythmIndex = 1
   $('.bar').css('background-color','');
-  $('.bar').css('text-shadow','2px 2px 5px black');
 };
 
 
@@ -169,20 +168,16 @@ function gainChangeListener(){
 
 function movePlayhead(index){
   $('.bar').css({
-    'color':'white',
     'background-color':'',
-    'text-shadow':'2px 2px 5px black'
   });
   $('#'+ index).css({
-    'color':'',
     'background-color':'red',
-    'text-shadow':'0px 0px 0px'
   });
 }
 
 
 function buildStepNumbers(){
-  for (var i = 1; i < 33; i++) {
+  for (var i = 1; i < 17; i++) {
     var context = {number: i};
     var html = $('#step_number_template').html();
     var templatingFunction = Handlebars.compile(html);
@@ -203,7 +198,7 @@ function buildPads(){
   for(track in allSounds){
     var instrument = allSounds[track].name
     console.log(instrument)
-    for (var i = 1; i < 33; i++) {
+    for (var i = 1; i < 17; i++) {
       var pads = $('span.' + instrument +'_pads')
       pads.append("<div class='" + instrument +" pad " + i + "' id=" + instrument + " value='" + i +"'></div>")
     };
