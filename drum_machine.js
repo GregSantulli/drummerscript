@@ -112,7 +112,6 @@ function stop(){
   playing = false
   rhythmIndex = 1
   $('.bar').css('background-color','');
-  $('.bar').css('text-shadow','2px 2px 5px black');
 };
 
 
