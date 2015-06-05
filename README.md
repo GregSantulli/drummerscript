@@ -55,11 +55,11 @@ function playSound(audio){
 As mentioned before, each Audio object is initialized with an empty pattern object. The ```padClickListener()``` controller allows a user to manipulate each pattern by clicking the respective object's pads. For example, when the 3rd pad of an object is clicked, ```pattern[3]``` is set to ```true```. This is fundamental to the way in which the drum machine triggers the selected sounds in the pattern: We iterate through each position (1 through 16) of each audio object's pattern, triggering all sounds set to ```true``` at that position. We accomplish this with a recursive ```setTimeout()```:
 
 ```javascript
-var rhythmIndex = 1; //used to keep track of position
-var tempo = 100; //beats per minute (BPM)
+var rhythmIndex = 1; // used to keep track of position
+var tempo = 100; // beats per minute (BPM)
 
 function loop(){
-  sixteenthNoteTime = 60 / tempo / 4; //16th note calculation
+  sixteenthNoteTime = 60 / tempo / 4; // 16th note calculation
   timer = setTimeout(function(){ 
     playCurrentIndex()
     loop()
