@@ -20,7 +20,7 @@ var Audio = function(name, path){
 }
 ```
 
-I create a dynamics compressor with ```var compressor = context.createDynamicsCompressor();``` and then set a number of parameters for the compressor. Think of a compressor as automatic volume control; if a sound is above a certain threshold, the compressor will lower the volume by a specified *ratio* and then raise it back after a specified *release time*. The compressor is connected to the main output: ```compressor.connect(context.destination)```. 
+I create a dynamics compressor with ```var compressor = context.createDynamicsCompressor()``` and then set a number of parameters for the compressor. Think of a compressor as automatic volume control; if a sound is above a certain threshold, the compressor will lower the volume by a specified *ratio* and then raise it back after a specified *release time*. The compressor is connected to the main output: ```compressor.connect(context.destination)```. 
 
 I use the following asynchronous request to load each sound into the browser's **AudioBuffer**: 
 
@@ -50,6 +50,46 @@ function playSound(audio){
 }
 ```
 
+As mentioned before, each Audio object is initialized with an empty pattern object. The ```padClickListener()``` controller allows a user to manipulate each pattern by clicking the respective object's pads. For example, when the 3rd pad of an object is clicked, ```pattern[3]``` is set to ```true```. This is fundamental to the way in which the drum machine triggers the selected sounds in the pattern: We iterate through each position (1 through 16) of each audio object's pattern, triggering all sounds set to ```true``` at that position. We accomplish this with a recursive ```setTimeout()```:
+
+```javascript
+var rhythmIndex = 1; //used to keep track of position
+var tempo = 100; //beats per minute (BPM)
+
+function loop(){
+  sixteenthNoteTime = 60 / tempo / 4; //16th note calculation
+  timer = setTimeout(function(){ 
+    playCurrentIndex()
+    loop()
+  }, sixteenthNoteTime*1000)  // playCurrentIndex() is triggered every 16th note
+}
+
+
+function playCurrentIndex(){  // plays all sounds at rhythmIndex
+  for (audio in allSounds){
+    var track = allSounds[audio];
+    var pattern = track.pattern
+    if (pattern[rhythmIndex]) {
+      playSound(track)
+    }
+  }
+  movePlayhead(rhythmIndex) // moves playhead to rhythmIndex
+  progressRhythm() // adds 1 to rhythmIndex or resets to 1 if at 16
+};
+
+function progressRhythm(){ 
+  if(rhythmIndex < 16){
+    rhythmIndex++
+  }else{
+    rhythmIndex = 1
+  }
+}
+
+```
+
+That is the main gist of how the drum machine works. Feel free to message me with questions or comments. Feedback is appreciated! 
+
+-Greg Santulli
 
 
 
