@@ -65,19 +65,19 @@ function loop(){
 }
 
 
-function playCurrentIndex(){  // plays all sounds at rhythmIndex
+function playCurrentIndex(){  // plays all sounds set to true at pattern[rhythmIndex]
   for (audio in allSounds){
     var track = allSounds[audio];
     var pattern = track.pattern
-    if (pattern[rhythmIndex]) {
+    if (pattern[rhythmIndex]) { 
       playSound(track)
     }
   }
   movePlayhead(rhythmIndex) // moves playhead to rhythmIndex
-  progressRhythm() // adds 1 to rhythmIndex or resets to 1 if at 16
+  progressRhythm() 
 };
 
-function progressRhythm(){ 
+function progressRhythm(){ // adds 1 to rhythmIndex or resets to 1 if at 16
   if(rhythmIndex < 16){
     rhythmIndex++
   }else{
