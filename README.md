@@ -39,16 +39,18 @@ Audio.prototype.loadSound = function(){
 }
 ```
 
-The AudioBuffer interface represents a short audio asset residing in memory, created from an audio file using the ```context.decodeAudioData()``` method. Once decoded into this form, the audio can then be put into an **AudioBufferSourceNode** and then triggered top play:
+The AudioBuffer interface represents a short audio asset residing in memory, created from an audio file using the ```context.decodeAudioData()``` method. Once decoded into this form, the audio can then be put into an **AudioBufferSourceNode** and then triggered to play:
 
 ```javascript
 function playSound(audio){
-  var sound = context.createBufferSource();
+  var sound = context.createBufferSource(); 
   sound.buffer = audio.buffer;
-  sound.connect(audio.gain);
-  sound.start(0);
+  sound.connect(audio.gain); // connect sound to Audio object's gainNode (which is connected to the compressor)
+  sound.start(0); // trigger the sound
 }
 ```
+
+
 
 
 
