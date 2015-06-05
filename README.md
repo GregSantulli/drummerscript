@@ -66,7 +66,6 @@ function loop(){
   }, sixteenthNoteTime*1000)  // playCurrentIndex() is triggered every 16th note
 }
 
-
 function playCurrentIndex(){  // plays all sounds set to true at pattern[rhythmIndex]
   for (audio in allSounds){
     var track = allSounds[audio];
