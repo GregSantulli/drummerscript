@@ -1,5 +1,7 @@
 # DrummerScript
 
+www.gregsantulli.com/drummerscript
+
 A simple, programmable drum sequencer written in object-oriented JavaScript using jQuery, HandleBars, and the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API). 
 
 
