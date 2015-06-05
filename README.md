@@ -1,9 +1,9 @@
 # DrummerScript
 
-A simple, programmable drum sequencer written in oject-oriented JavaScript using jQuery, HandleBars, and the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API). 
+A simple, programmable drum sequencer written in object-oriented JavaScript using jQuery, HandleBars, and the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API). 
 
 
-The Web Audio API is a powerful way to generate and control audio on the web. All audio operations occur inside the **audio context**. Basic operations are performed by **audio nodes** which are then linked together to form the **audio routing graph**. Much in the same way you would connect a guitar to an effect pedal and then to an amplifier, developers can connect audio nodes together inside the audio context.  
+The Web Audio API is a powerful way to generate and control audio on the web. All audio operations occur inside the **audio context**. Basic operations are performed by **audio nodes**, which are then linked together to form the **audio routing graph**. Much in the same way you would connect a guitar to an effect pedal and then to an amplifier, developers can connect audio nodes together inside the audio context.  
 
 
 In ```drum_machine.js``` I start by defining the audio context: ```var context = new AudioContext();```. Everything from here on out will be built off of this audio context. 
