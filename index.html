@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="drum_machine.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
   <script src="drum_machine.js"></script>
 
@@ -24,8 +25,8 @@
         <form class="gain" id="{{name}}">
           <input class="gain" type="range" value=".8" name="gain" min="0" max="1" step="0.05">
         </form>
-        <span class="instrument_label {{name}}">{{name}}</span>
-        <span class="{{name}}_pads pad_row"></span>
+        <div class="instrument_label {{name}}">{{name}}</div>
+        <div class="{{name}}_pads pad_row"></div>
       </div>
     {{/each}}
   </script>
@@ -33,6 +34,9 @@
 </head>
 
 <body>
+
+  <a href="https://github.com/GregSantulli/drummerscript"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+
   <div class="title">
     DrummerScript
   </div>
@@ -50,23 +54,23 @@
 
   <div class="pad_container">
 
+    <div id="instrument_container">
 
-    <div class="step_number_container instrument_row">
-      <dic class="volume_label">
+    <div class="step_number_container">
+      <div class="volume_label">
         VOLUME
 
-        </dic>
-      <div class="instrument_label tracks_header">TRACK</div>
+        </div>
+      <div class="tracks_header">TRACK</div>
     </div>
 
-    <div id="instrument_container">
     </div>
 
       <div class="control">
-        <button class="play btn btn-default glyphicon glyphicon-play">
+        <button class="play btn btn-success glyphicon glyphicon-play">
           <div class=""></div>
         </button>
-        <button class="stop btn btn-default glyphicon glyphicon-stop"></button>
+        <button class="stop btn btn-danger glyphicon glyphicon-stop"></button>
 
       <div class="bpm">
         <input class="bpm form-control" type="number" name="bpm" min="40" max="200" value="100">

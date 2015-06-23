@@ -3,20 +3,20 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var context = new AudioContext();
 
-var compressor = context.createDynamicsCompressor();
-compressor.threshold.value = -50;
-compressor.knee.value = 40;
-compressor.ratio.value = 12;
-compressor.reduction.value = -20;
-compressor.attack.value = 20;
-compressor.release.value = 0.25;
-compressor.connect(context.destination)
+// var compressor = context.createDynamicsCompressor();
+// compressor.threshold.value = -50;
+// compressor.knee.value = 40;
+// compressor.ratio.value = 12;
+// compressor.reduction.value = -20;
+// compressor.attack.value = 20;
+// compressor.release.value = 0.25;
+// compressor.connect(context.destination)
 
 var Audio = function(name, path){
   this.name = name
   this.path = path
   this.gain = context.createGain()
-  this.gain.connect(compressor)
+  this.gain.connect(context.destination)
   this.pattern = {}
 }
 
@@ -35,17 +35,15 @@ Audio.prototype.loadSound = function(){
 
 
 var allSounds = {
-  kick1: new Audio('kick1', 'sounds/kick-1.wav'),
-  kick2: new Audio('kick2', 'sounds/kick-2.wav'),
-  kick3: new Audio('kick3', 'sounds/kick-3.wav'),
-  snare1: new Audio('snare1', 'sounds/snare-1.wav'),
-  snare2: new Audio('snare2', 'sounds/snare-2.wav'),
-  clap1: new Audio('clap1', 'sounds/clap-1.wav'),
-  clap2: new Audio('clap2', 'sounds/clap-2.wav'),
-  hihat1: new Audio('hihat1', 'sounds/hi-hat-1.wav'),
-  hihat2: new Audio('hihat2', 'sounds/hi-hat-2.wav'),
-  openhat1: new Audio('openhat1', 'sounds/open-hat-1.wav'),
-  openhat2: new Audio('openhat2', 'sounds/open-hat-2.wav'),
+  tomHi: new Audio('tomHi', 'sounds/TOM-HI.wav'),
+  tomLo: new Audio('tomLo', 'sounds/TOM-LO.wav'),
+  clav: new Audio('clav', 'sounds/CLAV.wav'),
+  hatOpen: new Audio('hatOpen', 'sounds/HAT-OPEN.wav'),
+  hatClosed: new Audio('hatClosed', 'sounds/HAT-CLOSED.wav'),
+  clap: new Audio('clap', 'sounds/CLAP.wav'),
+  snare: new Audio('snare', 'sounds/SNARE.wav'),
+  kickHi: new Audio('kickHi', 'sounds/KICK-HI.wav'),
+  kickLo: new Audio('kickLo', 'sounds/KICK-LO.wav'),
 }
 
 
@@ -95,8 +93,14 @@ function playCurrentIndex(){
     var pattern = track.pattern
     if (pattern[rhythmIndex]) {
       playSound(track)
+      $('.instrument_label.'+track.name).animate( { backgroundColor: "yellow" }, 0 )
+    .animate( { backgroundColor: "" }, 500 );
+
     }
   }
+  $('.'+rhythmIndex+'.active')
+    .animate( { backgroundColor: "yellow" }, 0 )
+    .animate( { backgroundColor: "red" }, 500 );
   movePlayhead(rhythmIndex)
   progressRhythm()
 };
@@ -159,7 +163,7 @@ function tempoChangeListener(){
 
 
 function gainChangeListener(){
-  $('input.gain').on('change', function(e){
+  $('input.gain').on('input', function(e){
     e.preventDefault();
     var newGain = $(this).val()
     var instrument = $(this).parent().attr('id')
@@ -183,25 +187,30 @@ function buildStepNumbers(){
     var context = {number: i};
     var html = $('#step_number_template').html();
     var templatingFunction = Handlebars.compile(html);
-    $('.step_number_container').append(templatingFunction(context));
+    $('.step_number_container').prepend(templatingFunction(context));
   };
 };
+
+function drawFourStepBars(){
+
+
+
+}
 
 
 function buildTracks(){
 
-    var context = {sounds: allSounds};
-    var html = $('#track_template').html();
-    var templatingFunction = Handlebars.compile(html);
-    $('#instrument_container').append(templatingFunction(context));
+  var context = {sounds: allSounds};
+  var html = $('#track_template').html();
+  var templatingFunction = Handlebars.compile(html);
+  $('#instrument_container').append(templatingFunction(context));
 };
 
 function buildPads(){
   for(track in allSounds){
     var instrument = allSounds[track].name
-    console.log(instrument)
     for (var i = 1; i < 17; i++) {
-      var pads = $('span.' + instrument +'_pads')
+      var pads = $('div.' + instrument +'_pads')
       pads.append("<div class='" + instrument +" pad " + i + "' id=" + instrument + " value='" + i +"'></div>")
     };
   }
@@ -209,8 +218,9 @@ function buildPads(){
 
 function buildBoard(){
   buildStepNumbers();
-  buildTracks()
-  buildPads()
+  drawFourStepBars();
+  buildTracks();
+  buildPads();
 };
 
 function initializeControls(){
@@ -222,7 +232,7 @@ function initializeControls(){
 };
 
 $(document).ready(function() {
-  buildBoard()
+  buildBoard();
   loadAllSounds();
   initializeControls();
 });

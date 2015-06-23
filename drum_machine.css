@@ -1,7 +1,7 @@
 
 body{
   -webkit-font-smoothing:antialiased;
-  background-color: #efeff2
+  background-color: #efeff2;
 }
 
 .pad {
@@ -11,28 +11,8 @@ body{
   border-radius: 2px;
   margin-bottom: 0px;
   margin-left: 5px;
+  background-color: white;
 }
-
-.gain {
-    width: 70px;
-    display: inline-block;
-
-}
-
-.instrument_label {
-  display:inline-block;
-  text-align: right;
-  vertical-align: top;
-  width: 100px;
-  border-radius: 2px;
-  text-align: center;
-  height: 30px;
-  line-height: 30px;
-}
-
-.step_number_container{
-}
-
 .bar {
   display: inline-block;
   width: 30px;
@@ -42,19 +22,46 @@ body{
   text-align: center;
   border-radius: 2px;
   margin-left: 5px;
+  margin-right: 0px;
   margin-bottom: 0px;
+  /*border: 1px solid red*/
+  float: right;
 }
+
+/*.gain {
+    width: 70px;
+    display: inline-block;
+
+}*/
+
+.instrument_label {
+  display:inline-block;
+  background-color: white;
+  /*text-align: right;*/
+  vertical-align: top;
+  width: 100px;
+  border-radius: 2px;
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+}
+
+.step_number_container{
+  margin-bottom: 5px;
+
+}
+
 
 .pad_container {
   border: 2px solid #dadae3;
-  background-color: #dadae3;
+  background-color: #e0e0e0;
   border-style: outset;
   border-radius: 10px;
   padding: 10px;
   overflow: hidden;
+  width: 850px;
   margin: auto;
   margin-top: 20px;
-  width: 750px;
   text-align: right;
   box-shadow: 10px 10px 20px gray
 
@@ -65,28 +72,7 @@ body{
 
 
 .active{
-   box-shadow: 0px 0px 5px red
-}
-
-
-.kick1, .kick2, .kick3 {
-  background-color: #6ECFF6;
-}
-
-.snare1, .snare2 {
-  background-color: #F7977A;
-}
-
-.clap1, .clap2 {
-  background-color: #FDC68A;
-}
-
-.hihat1 , .hihat2 {
-  background-color: #C4DF9B;
-}
-
-.openhat1, .openhat2 {
-  background-color: #A2D39C;
+   /*box-shadow: 0px 0px 5px red*/
 }
 
 
@@ -113,6 +99,14 @@ body{
   letter-spacing: 1px;
 }
 
+.tracks_header{
+  margin-right: 5px;
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+}
 
 .description{
   margin: auto;
@@ -145,16 +139,10 @@ body{
   vertical-align: middle;
   float: right;
   margin-right: 5px;
-
 }
 
 .clear{
   margin-top: 50px;
-}
-
-
-a{
-  color: #333;
 }
 
 .bpm{
@@ -162,13 +150,9 @@ a{
   float: right;
 }
 
-a:link{
-  text-decoration: none;
-  color: #333
-}
 
 
-a:visited{
+a, a:visited, a:link{
   text-decoration: none;
   color: #333
 }
@@ -184,24 +168,37 @@ a:visited{
 
 form.gain{
   margin-right: 10px;
+  margin-bottom: 5px;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  vertical-align: middle;
+  width: 70px;
+  top: 0px;
+}
 
+
+input.gain{
+   line-height: 30px;
+    vertical-align: middle;
 }
 
 .instrument_row{
   height: 30px;
   margin-bottom: 5px;
-  display: flex;
-  align-items: center;
-
 }
 
 .pad_row{
   padding: 0px;
-  display: flex;
+  display:  inline-block;
 }
 
 .volume_label{
   width: 70px;
-  margin-right: 10px;
+  height: 30px;
+  line-height: 30px;
+  vertical-align: middle;
   text-align: center;
+  margin-right: 10px;
+  display: inline-block;
 }
