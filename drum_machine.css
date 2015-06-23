@@ -110,14 +110,14 @@ body{
 }
 
 .directions{
-  margin-top: 10px
+  margin-bottom: 30px
 }
 
 .footer{
   margin: auto;
   width: 50%;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 30px;
   letter-spacing: 1px;
 }
 
@@ -147,7 +147,6 @@ body{
 
 
 a, a:visited, a:link{
-  text-decoration: none;
   color: #333
 }
 

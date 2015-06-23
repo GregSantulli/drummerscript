@@ -162,7 +162,7 @@ function clearPads(){
   for (audio in allSounds){
     allSounds[audio].pattern = {}
   }
-  $('div.pad').css('background-color', '').removeClass('active');
+  $('div.pad').css('background-color', 'white').removeClass('active');
   stop();
 }
 
