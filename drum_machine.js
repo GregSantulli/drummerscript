@@ -60,6 +60,21 @@ function playSound(audio){
   sound.buffer = audio.buffer;
   sound.connect(audio.gain);
   sound.start(0);
+  $('.instrument_label.'+audio.name).animate( { backgroundColor: "red" }, 0 )
+  .animate( { backgroundColor: "white" }, 100 );
+
+}
+
+function instrumentLabelClickListener(){
+  $('.instrument_label').on('click', function(){
+    var sound = $(this).html()
+    for (audio in allSounds){
+      var track = allSounds[audio];
+      if (track.name === sound) {
+        playSound(track)
+      }
+    }
+  })
 }
 
 
@@ -93,14 +108,11 @@ function playCurrentIndex(){
     var pattern = track.pattern
     if (pattern[rhythmIndex]) {
       playSound(track)
-      $('.instrument_label.'+track.name).animate( { backgroundColor: "yellow" }, 0 )
-    .animate( { backgroundColor: "" }, 500 );
-
     }
   }
   $('.'+rhythmIndex+'.active')
-    .animate( { backgroundColor: "yellow" }, 0 )
-    .animate( { backgroundColor: "red" }, 500 );
+  .animate( { backgroundColor: "yellow" }, 0 )
+  .animate( { backgroundColor: "red" }, 500 );
   movePlayhead(rhythmIndex)
   progressRhythm()
 };
@@ -135,6 +147,24 @@ function stopButtonListener(){
   });
 };
 
+
+function trashButtonListener(){
+  $('.trash').on('click', function(){
+    var txt;
+    var prompt = confirm("Clear your current pattern?");
+    if (prompt == true) {
+      clearPads();
+    }
+  })
+}
+
+function clearPads(){
+  for (audio in allSounds){
+    allSounds[audio].pattern = {}
+  }
+  $('div.pad').css('background-color', '').removeClass('active');
+  stop();
+}
 
 function padClickListener(){
   $('div.pad').on('click', function(){
@@ -192,14 +222,15 @@ function buildStepNumbers(){
 };
 
 function drawFourStepBars(){
-
-
-
+  $('.bar#1').append("<div class='bar_line'></div>")
+  $('.bar#5').append("<div class='bar_line'></div>")
+  $('.bar#9').append("<div class='bar_line'></div>")
+  $('.bar#13').append("<div class='bar_line'></div>")
 }
 
 
-function buildTracks(){
 
+function buildTracks(){
   var context = {sounds: allSounds};
   var html = $('#track_template').html();
   var templatingFunction = Handlebars.compile(html);
@@ -225,8 +256,10 @@ function buildBoard(){
 
 function initializeControls(){
   playButtonListener();
-  stopButtonListener()
+  stopButtonListener();
+  trashButtonListener();
   padClickListener();
+  instrumentLabelClickListener();
   tempoChangeListener();
   gainChangeListener();
 };
