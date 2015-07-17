@@ -125,7 +125,7 @@ function progressRhythm(){
   }
 }
 
-function stop(){
+function stop_sequence(){
   clearTimeout(timer)
   playing = false
   rhythmIndex = 1
@@ -143,7 +143,7 @@ function playButtonListener(){
 
 function stopButtonListener(){
   $('button.stop').on('click', function(){
-    stop();
+    stop_sequence();
   });
 };
 
@@ -163,7 +163,7 @@ function clearPads(){
     allSounds[audio].pattern = {}
   }
   $('div.pad').css('background-color', 'white').removeClass('active');
-  stop();
+  stop_sequence();
 }
 
 function padClickListener(){
