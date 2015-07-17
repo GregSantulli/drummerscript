@@ -3,15 +3,6 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var context = new AudioContext();
 
-// var compressor = context.createDynamicsCompressor();
-// compressor.threshold.value = -50;
-// compressor.knee.value = 40;
-// compressor.ratio.value = 12;
-// compressor.reduction.value = -20;
-// compressor.attack.value = 20;
-// compressor.release.value = 0.25;
-// compressor.connect(context.destination)
-
 var Audio = function(name, path){
   this.name = name
   this.path = path
@@ -150,7 +141,6 @@ function stopButtonListener(){
 
 function trashButtonListener(){
   $('.trash').on('click', function(){
-    var txt;
     var prompt = confirm("Clear your current pattern?");
     if (prompt == true) {
       clearPads();
@@ -162,8 +152,8 @@ function clearPads(){
   for (audio in allSounds){
     allSounds[audio].pattern = {}
   }
-  $('div.pad').css('background-color', 'white').removeClass('active');
-  stop_sequence();
+  $('div.pad').stop().css('background-color', 'white').removeClass('active');
+      stop_sequence();
 }
 
 function padClickListener(){
@@ -173,9 +163,8 @@ function padClickListener(){
 
     if ($(this).hasClass('active')){
       $(this).removeClass('active')
-      $(this).css('background-color', '')
+      $(this).css('background-color', 'white')
       allSounds[sound].pattern[position] = false
-
     } else {
       $(this).addClass('active')
       $(this).css('background-color', 'red')
@@ -247,6 +236,29 @@ function buildPads(){
   }
 }
 
+function setInitialPattern(){
+  allSounds.clap.pattern = {5: true, 13: true}
+  $('div.clap.pad.5').addClass('active')
+  $('div.clap.pad.13').addClass('active')
+  allSounds.snare.pattern = {5: true, 13: true}
+  $('div.snare.pad.5').addClass('active')
+  $('div.snare.pad.13').addClass('active')
+  allSounds.hatClosed.pattern = {3: true, 7: true, 11: true, 15: true}
+  $('div.hatClosed.pad.3').addClass('active')
+  $('div.hatClosed.pad.7').addClass('active')
+  $('div.hatClosed.pad.11').addClass('active')
+  $('div.hatClosed.pad.15').addClass('active')
+  allSounds.kickHi.pattern = {1: true, 8: true, 11: true}
+  $('div.kickHi.pad.1').addClass('active')
+  $('div.kickHi.pad.8').addClass('active')
+  $('div.kickHi.pad.11').addClass('active')
+  allSounds.clav.pattern = {4: true, 12: true}
+  $('div.clav.pad.4').addClass('active')
+  $('div.clav.pad.12').addClass('active')
+  allSounds.tomLo.pattern = {16: true}
+  $('div.tomLo.pad.16').addClass('active')
+}
+
 function buildBoard(){
   buildStepNumbers();
   drawFourStepBars();
@@ -268,6 +280,7 @@ $(document).ready(function() {
   buildBoard();
   loadAllSounds();
   initializeControls();
+  setInitialPattern()
 });
 
 
