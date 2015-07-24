@@ -110,7 +110,7 @@ function playCurrentIndex(){
   progressRhythm()
 };
 
-
+var noteGain = .1
 
 function playArp(){
   for(i = 1; i < 9; i++){
@@ -118,7 +118,7 @@ function playArp(){
     if(note[rhythmIndex]){
       oscillator = context.createOscillator();
       gain = context.createGain();
-      gain.gain.value = .1;
+      gain.gain.value = noteGain;
       oscillator.frequency.value = scale[i];
       oscillator.type = "sawtooth";
       oscillator.connect(gain);
@@ -310,6 +310,13 @@ function arpGateListener(){
   })
 }
 
+function arpGainListener(){
+  $("input.note-gain").on('input', function(){
+    var newGain = $(this).val()
+    noteGain = newGain
+  })
+}
+
 
 function setInitialPattern(){
   allSounds.clap.pattern = {5: true, 13: true}
@@ -370,8 +377,9 @@ function initializeControls(){
   instrumentLabelClickListener();
   tempoChangeListener();
   gainChangeListener();
-  arpPadListener()
-  arpGateListener()
+  arpPadListener();
+  arpGateListener();
+  arpGainListener();
 };
 
 $(document).ready(function() {

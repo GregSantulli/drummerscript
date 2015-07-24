@@ -217,8 +217,19 @@ button{
   margin-bottom: 5px;
 }
 
-input.gate{
+input.note-gain, input.gate{
   width: 100px;
+  display: inline-block;
+  float: left;
+  height: 20px;
+}
+
+.gate{
+  float: left;
+  width: 70px;
+  text-align: right;
+  padding-right: 5px;
+
 }
 
 button.active{
