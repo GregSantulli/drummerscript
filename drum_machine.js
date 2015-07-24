@@ -118,7 +118,7 @@ function playArp(){
     if(note[rhythmIndex]){
       oscillator = context.createOscillator();
       gain = context.createGain();
-      gain.gain.value = .15;
+      gain.gain.value = .1;
       oscillator.frequency.value = scale[i];
       oscillator.type = "sawtooth";
       oscillator.connect(gain);
