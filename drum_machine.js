@@ -1,6 +1,6 @@
 
-window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var context = new AudioContext();
 
 var Audio = function(name, path){
@@ -25,7 +25,6 @@ Audio.prototype.loadSound = function(){
   getSound.send();
 }
 
-
 var allSounds = {
   tomHi: new Audio('tomHi', 'sounds/TOM-HI.wav'),
   tomLo: new Audio('tomLo', 'sounds/TOM-LO.wav'),
@@ -37,6 +36,39 @@ var allSounds = {
   kickHi: new Audio('kickHi', 'sounds/KICK-HI.wav'),
   kickLo: new Audio('kickLo', 'sounds/KICK-LO.wav'),
 }
+
+var tempo = 95;
+var rhythmIndex = 1;
+var playing = false;
+var sixteenthNoteTime;
+var timer;
+var gate = 1;
+var noteGain = .1;
+
+
+var arp = {
+ 1: {},
+ 2: {},
+ 3: {},
+ 4: {},
+ 5: {},
+ 6: {},
+ 7: {},
+ 8: {},
+};
+
+arpShape = "square"
+
+var scale = {
+  1: 261.63,
+  2: 293.66,
+  3: 329.63,
+  4: 349.23,
+  5: 392.00,
+  6: 440.00,
+  7: 493.88,
+  8: 523.25,
+};
 
 
 
@@ -57,24 +89,6 @@ function playSound(audio){
 
 }
 
-function instrumentLabelClickListener(){
-  $('.instrument_label').on('click', function(){
-    var sound = $(this).html()
-    for (audio in allSounds){
-      var track = allSounds[audio];
-      if (track.name === sound) {
-        playSound(track)
-      }
-    }
-  })
-}
-
-
-var tempo = 95;
-var rhythmIndex = 1;
-var playing = false;
-var sixteenthNoteTime;
-var timer;
 
 
 function play(){
@@ -94,6 +108,8 @@ function loop(){
   }, sixteenthNoteTime*1000)
 }
 
+
+
 function playCurrentIndex(){
   playArp();
   for (audio in allSounds){
@@ -110,7 +126,15 @@ function playCurrentIndex(){
   progressRhythm()
 };
 
-var noteGain = .1
+function movePlayhead(index){
+  $('.bar').css({
+    'background-color':'',
+  });
+  $('#'+ index).css({
+    'background-color':'red',
+  });
+}
+
 
 function playArp(){
   for(i = 1; i < 9; i++){
@@ -120,7 +144,7 @@ function playArp(){
       gain = context.createGain();
       gain.gain.value = noteGain;
       oscillator.frequency.value = scale[i];
-      oscillator.type = "sawtooth";
+      oscillator.type = arpShape;
       oscillator.connect(gain);
       gain.connect(context.destination);
       oscillator.start(0)
@@ -149,6 +173,16 @@ function stop_sequence(){
 
 
 
+function clearPads(){
+  for (audio in allSounds){
+    allSounds[audio].pattern = {}
+  }
+  $('div.pad').stop().css('background-color', 'white').removeClass('active');
+  stop_sequence();
+}
+
+
+
 
 function playButtonListener(){
   $('button.play').on('click', function(){
@@ -172,13 +206,6 @@ function trashButtonListener(){
   })
 }
 
-function clearPads(){
-  for (audio in allSounds){
-    allSounds[audio].pattern = {}
-  }
-  $('div.pad').stop().css('background-color', 'white').removeClass('active');
-  stop_sequence();
-}
 
 function padClickListener(){
   $('div.pad').on('click', function(){
@@ -214,15 +241,21 @@ function gainChangeListener(){
   });
 };
 
-
-function movePlayhead(index){
-  $('.bar').css({
-    'background-color':'',
-  });
-  $('#'+ index).css({
-    'background-color':'red',
-  });
+function instrumentLabelClickListener(){
+  $('.instrument_label').on('click', function(){
+    var sound = $(this).html()
+    for (audio in allSounds){
+      var track = allSounds[audio];
+      if (track.name === sound) {
+        playSound(track)
+      }
+    }
+  })
 }
+
+
+
+
 
 
 function buildStepNumbers(){
@@ -261,31 +294,6 @@ function buildPads(){
 }
 
 
-var arp = {
- 1: {},
- 2: {},
- 3: {},
- 4: {},
- 5: {},
- 6: {},
- 7: {},
- 8: {},
-}
-
-
-var scale = {
-  1: 261.63,
-  2: 293.66,
-  3: 329.63,
-  4: 349.23,
-  5: 392.00,
-  6: 440.00,
-  7: 493.88,
-  8: 523.25,
-}
-
-var gate = 1
-
 
 function arpPadListener(){
   $('.note').on('click', function(){
@@ -317,28 +325,35 @@ function arpGainListener(){
   })
 }
 
+function arpShapeListener(){
+  console.log($('button.gate'))
+  $('button.gate.btn').css("background-color", "white")
+  $('button.gate.btn[data-shape="square"]').css("background-color", "yellow")
+  $('button.gate.btn').on('click',function(){
+    $('button.gate.btn').css("background-color", "white")
+    $(this).css("background-color", "yellow")
+    newShape = $(this).attr('data-shape')
+    arpShape = newShape
+  })
+}
+
 
 function setInitialPattern(){
   allSounds.clap.pattern = {5: true, 13: true}
-  $('div.clap.pad.5').addClass('active')
-  $('div.clap.pad.13').addClass('active')
   allSounds.snare.pattern = {5: true, 13: true}
-  $('div.snare.pad.5').addClass('active')
-  $('div.snare.pad.13').addClass('active')
   allSounds.hatClosed.pattern = {3: true, 7: true, 11: true, 15: true}
-  $('div.hatClosed.pad.3').addClass('active')
-  $('div.hatClosed.pad.7').addClass('active')
-  $('div.hatClosed.pad.11').addClass('active')
-  $('div.hatClosed.pad.15').addClass('active')
   allSounds.kickHi.pattern = {1: true, 8: true, 11: true}
-  $('div.kickHi.pad.1').addClass('active')
-  $('div.kickHi.pad.8').addClass('active')
-  $('div.kickHi.pad.11').addClass('active')
   allSounds.clav.pattern = {4: true, 12: true}
-  $('div.clav.pad.4').addClass('active')
-  $('div.clav.pad.12').addClass('active')
   allSounds.tomLo.pattern = {16: true}
-  $('div.tomLo.pad.16').addClass('active')
+  for(sound in allSounds){
+    var audio = allSounds[sound]
+    for (var i = 1; i <= 16; i++) {
+      if (audio.pattern[i]){
+        $('div.' + audio.name + '.pad.' + i).addClass('active')
+      }
+    };
+  }
+
 }
 
 function setArpPattern(){
@@ -350,7 +365,6 @@ function setArpPattern(){
   arp[6] = {2: true, 5: true}
   arp[7] = {13: true, 15: true}
   arp[8] = {2: true, 8: true, 10: true, 16: true}
-
   for (var i = 1; i <= 8; i++) {
     for (var j = 1; j <= 16; j++) {
       if (arp[i][j]){
@@ -380,14 +394,20 @@ function initializeControls(){
   arpPadListener();
   arpGateListener();
   arpGainListener();
+  arpShapeListener()
 };
 
-$(document).ready(function() {
+
+function start(){
   buildBoard();
   loadAllSounds();
   initializeControls();
   setInitialPattern();
   setArpPattern();
+}
+
+$(document).ready(function() {
+  start()
 });
 
 

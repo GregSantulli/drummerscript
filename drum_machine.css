@@ -235,3 +235,10 @@ input.note-gain, input.gate{
 button.active{
   background-color: red
 }
+
+button.gate{
+  text-align: center;
+  padding:  0px;
+  margin: 3px
+  /*width: 50px;*/
+}
