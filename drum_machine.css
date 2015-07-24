@@ -202,3 +202,25 @@ input.gain{
 .trash{
   margin-left: 100px
 }
+
+button{
+  margin: 0px
+}
+
+.note{
+  height: 20px;
+  width: 30px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  background-color: white;
+  margin-left: 2px;
+  margin-bottom: 5px;
+}
+
+input.gate{
+  width: 100px;
+}
+
+button.active{
+  background-color: red
+}

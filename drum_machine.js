@@ -7,6 +7,7 @@ var Audio = function(name, path){
   this.name = name
   this.path = path
   this.gain = context.createGain()
+  this.gain.gain.value = .6
   this.gain.connect(context.destination)
   this.pattern = {}
 }
@@ -69,7 +70,7 @@ function instrumentLabelClickListener(){
 }
 
 
-var tempo = 100;
+var tempo = 95;
 var rhythmIndex = 1;
 var playing = false;
 var sixteenthNoteTime;
@@ -88,12 +89,13 @@ function play(){
 function loop(){
   sixteenthNoteTime = 60 / tempo / 4;
   timer = setTimeout(function(){
-    playCurrentIndex()
-    loop()
+    playCurrentIndex();
+    loop();
   }, sixteenthNoteTime*1000)
 }
 
 function playCurrentIndex(){
+  playArp();
   for (audio in allSounds){
     var track = allSounds[audio];
     var pattern = track.pattern
@@ -107,6 +109,28 @@ function playCurrentIndex(){
   movePlayhead(rhythmIndex)
   progressRhythm()
 };
+
+
+
+function playArp(){
+  for(i = 1; i < 9; i++){
+    note = arp[i]
+    if(note[rhythmIndex]){
+      oscillator = context.createOscillator();
+      gain = context.createGain();
+      gain.gain.value = .15;
+      oscillator.frequency.value = scale[i];
+      oscillator.type = "sawtooth";
+      oscillator.connect(gain);
+      gain.connect(context.destination);
+      oscillator.start(0)
+      oscillator.stop(context.currentTime + (sixteenthNoteTime* gate))
+    }
+  }
+  $('.note.active[data-position="'+rhythmIndex+'"]')
+  .animate( { backgroundColor: "yellow" }, 0 )
+  .animate( { backgroundColor: "red" }, 500 );
+}
 
 function progressRhythm(){
   if(rhythmIndex < 16){
@@ -153,7 +177,7 @@ function clearPads(){
     allSounds[audio].pattern = {}
   }
   $('div.pad').stop().css('background-color', 'white').removeClass('active');
-      stop_sequence();
+  stop_sequence();
 }
 
 function padClickListener(){
@@ -236,6 +260,57 @@ function buildPads(){
   }
 }
 
+
+var arp = {
+ 1: {},
+ 2: {},
+ 3: {},
+ 4: {},
+ 5: {},
+ 6: {},
+ 7: {},
+ 8: {},
+}
+
+
+var scale = {
+  1: 261.63,
+  2: 293.66,
+  3: 329.63,
+  4: 349.23,
+  5: 392.00,
+  6: 440.00,
+  7: 493.88,
+  8: 523.25,
+}
+
+var gate = 1
+
+
+function arpPadListener(){
+  $('.note').on('click', function(){
+    var note = $(this).parent().attr("data-note")
+    var position = $(this).attr("data-position")
+    if ($(this).hasClass('active')){
+      $(this).removeClass('active')
+      $(this).css('background-color', 'white');
+      arp[note][position] = false
+    } else {
+      $(this).addClass('active')
+      $(this).css('background-color', 'red')
+      arp[note][position] = true
+    }
+  })
+}
+
+function arpGateListener(){
+  $("input.gate").on('input', function(){
+    var newGate = $(this).val()
+    gate = newGate
+  })
+}
+
+
 function setInitialPattern(){
   allSounds.clap.pattern = {5: true, 13: true}
   $('div.clap.pad.5').addClass('active')
@@ -259,6 +334,27 @@ function setInitialPattern(){
   $('div.tomLo.pad.16').addClass('active')
 }
 
+function setArpPattern(){
+  arp[1] = {1: true, 5: true, 12: true}
+  arp[2] = {13: true}
+  arp[3] = {2: true, 4: true, 8: true, 10: true}
+  arp[4] = {5: true, 7: true}
+  arp[5] = {8: true, 10: true, 13: true}
+  arp[6] = {2: true, 5: true}
+  arp[7] = {13: true, 15: true}
+  arp[8] = {2: true, 8: true, 10: true, 16: true}
+
+  for (var i = 1; i <= 8; i++) {
+    for (var j = 1; j <= 16; j++) {
+      if (arp[i][j]){
+        $('div.note-row[data-note="' + i + '"] button[data-position="' + j + '"]').addClass('active')
+      }
+    };
+  };
+
+}
+
+
 function buildBoard(){
   buildStepNumbers();
   drawFourStepBars();
@@ -274,13 +370,16 @@ function initializeControls(){
   instrumentLabelClickListener();
   tempoChangeListener();
   gainChangeListener();
+  arpPadListener()
+  arpGateListener()
 };
 
 $(document).ready(function() {
   buildBoard();
   loadAllSounds();
   initializeControls();
-  setInitialPattern()
+  setInitialPattern();
+  setArpPattern();
 });
 
 

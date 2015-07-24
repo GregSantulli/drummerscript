@@ -12,23 +12,23 @@
   <script src="drum_machine.js"></script>
 
   <script id="step_number_template" type="text/x-handlebars-template">
-    <div class="bar" id="{{number}}">{{number}}</div>
+  <div class="bar" id="{{number}}">{{number}}</div>
   </script>
 
   <script id="step_number_template" type="text/x-handlebars-template">
-    <div class="bar" id="{{number}}">{{number}}</div>
+  <div class="bar" id="{{number}}">{{number}}</div>
   </script>
 
   <script id="track_template" type="text/x-handlebars-template">
-    {{#each sounds}}
-      <div class="instrument_row">
-        <form class="gain" id="{{name}}">
-          <input class="gain" type="range" value=".8" name="gain" min="0" max="1" step="0.05">
-        </form>
-        <div class="instrument_label {{name}} btn btn-default">{{name}}</div>
-        <div class="{{name}}_pads pad_row"></div>
-      </div>
-    {{/each}}
+  {{#each sounds}}
+  <div class="instrument_row">
+  <form class="gain" id="{{name}}">
+  <input class="gain" type="range" value=".6" name="gain" min="0" max="1" step="0.05">
+  </form>
+  <div class="instrument_label {{name}} btn btn-default">{{name}}</div>
+  <div class="{{name}}_pads pad_row"></div>
+  </div>
+  {{/each}}
   </script>
 
 </head>
@@ -43,40 +43,40 @@
 
   <div class="description">
     Developed by <a href="http://www.gregsantulli.com">Greg Santulli</a> using JavaScript, jQuery and the Web Audio API.    <a href="https://github.com/GregSantulli/drummerscript">
-        <img class="github_logo" src="images/gh-logo.svg" alt="GitHub Logo">
+    <img class="github_logo" src="images/gh-logo.svg" alt="GitHub Logo">
 
-      </a>
-  </div>
+  </a>
+</div>
 
-  <div class="description directions">
-    Create a pattern by clicking the pads, then press play.
-  </div>
+<div class="description directions">
+  Create a pattern by clicking the pads, then press play.
+</div>
 
-  <div class="pad_container">
+<div class="pad_container">
 
-    <div id="instrument_container">
+  <div id="instrument_container">
 
     <div class="step_number_container">
       <div class="volume_label">
         VOLUME
 
-        </div>
+      </div>
       <div class="tracks_header">TRACK</div>
     </div>
 
+  </div>
+
+  <div class="control">
+    <button class="play btn btn-success glyphicon glyphicon-play"></button>
+    <button class="stop btn btn-danger glyphicon glyphicon-stop"></button>
+    <button class="trash btn btn-default glyphicon glyphicon-trash"></button>
+
+    <div class="bpm">
+      <input class="bpm form-control" type="number" name="bpm" min="40" max="200" value="95">
     </div>
-
-      <div class="control">
-        <button class="play btn btn-success glyphicon glyphicon-play"></button>
-        <button class="stop btn btn-danger glyphicon glyphicon-stop"></button>
-        <button class="trash btn btn-default glyphicon glyphicon-trash"></button>
-
-      <div class="bpm">
-        <input class="bpm form-control" type="number" name="bpm" min="40" max="200" value="100">
-      </div>
-        <span class="bpm-label text-center">
-        BPM:
-      </span>
+    <span class="bpm-label text-center">
+      BPM:
+    </span>
       <!--  <div>
         <button class="clear btn btn-default">CLEAR</button>
       </div> -->
@@ -84,11 +84,157 @@
 
   </div>
 
+  <div class="pad_container">
+  <input class="gate" type="range" value="1" name="gate" min="0" max="3" step="0.01">
+    <div class="note-row" data-note="8">
+      <button class="note" data-position="1"></button>
+      <button class="note" data-position="2"></button>
+      <button class="note" data-position="3"></button>
+      <button class="note" data-position="4"></button>
+      <button class="note" data-position="5"></button>
+      <button class="note" data-position="6"></button>
+      <button class="note" data-position="7"></button>
+      <button class="note" data-position="8"></button>
+      <button class="note" data-position="9"></button>
+      <button class="note" data-position="10"></button>
+      <button class="note" data-position="11"></button>
+      <button class="note" data-position="12"></button>
+      <button class="note" data-position="13"></button>
+      <button class="note" data-position="14"></button>
+      <button class="note" data-position="15"></button>
+      <button class="note" data-position="16"></button>
+    </div>
+    <div class="note-row" data-note="7">
+      <button class="note" data-position="1"></button>
+      <button class="note" data-position="2"></button>
+      <button class="note" data-position="3"></button>
+      <button class="note" data-position="4"></button>
+      <button class="note" data-position="5"></button>
+      <button class="note" data-position="6"></button>
+      <button class="note" data-position="7"></button>
+      <button class="note" data-position="8"></button>
+      <button class="note" data-position="9"></button>
+      <button class="note" data-position="10"></button>
+      <button class="note" data-position="11"></button>
+      <button class="note" data-position="12"></button>
+      <button class="note" data-position="13"></button>
+      <button class="note" data-position="14"></button>
+      <button class="note" data-position="15"></button>
+      <button class="note" data-position="16"></button>
+    </div>
+    <div class="note-row" data-note="6">
+      <button class="note" data-position="1"></button>
+      <button class="note" data-position="2"></button>
+      <button class="note" data-position="3"></button>
+      <button class="note" data-position="4"></button>
+      <button class="note" data-position="5"></button>
+      <button class="note" data-position="6"></button>
+      <button class="note" data-position="7"></button>
+      <button class="note" data-position="8"></button>
+      <button class="note" data-position="9"></button>
+      <button class="note" data-position="10"></button>
+      <button class="note" data-position="11"></button>
+      <button class="note" data-position="12"></button>
+      <button class="note" data-position="13"></button>
+      <button class="note" data-position="14"></button>
+      <button class="note" data-position="15"></button>
+      <button class="note" data-position="16"></button>
+    </div>
+    <div class="note-row" data-note="5">
+      <button class="note" data-position="1"></button>
+      <button class="note" data-position="2"></button>
+      <button class="note" data-position="3"></button>
+      <button class="note" data-position="4"></button>
+      <button class="note" data-position="5"></button>
+      <button class="note" data-position="6"></button>
+      <button class="note" data-position="7"></button>
+      <button class="note" data-position="8"></button>
+      <button class="note" data-position="9"></button>
+      <button class="note" data-position="10"></button>
+      <button class="note" data-position="11"></button>
+      <button class="note" data-position="12"></button>
+      <button class="note" data-position="13"></button>
+      <button class="note" data-position="14"></button>
+      <button class="note" data-position="15"></button>
+      <button class="note" data-position="16"></button>
+    </div>
+    <div class="note-row" data-note="4">
+      <button class="note" data-position="1"></button>
+      <button class="note" data-position="2"></button>
+      <button class="note" data-position="3"></button>
+      <button class="note" data-position="4"></button>
+      <button class="note" data-position="5"></button>
+      <button class="note" data-position="6"></button>
+      <button class="note" data-position="7"></button>
+      <button class="note" data-position="8"></button>
+      <button class="note" data-position="9"></button>
+      <button class="note" data-position="10"></button>
+      <button class="note" data-position="11"></button>
+      <button class="note" data-position="12"></button>
+      <button class="note" data-position="13"></button>
+      <button class="note" data-position="14"></button>
+      <button class="note" data-position="15"></button>
+      <button class="note" data-position="16"></button>
+    </div>
+    <div class="note-row" data-note="3">
+      <button class="note" data-position="1"></button>
+      <button class="note" data-position="2"></button>
+      <button class="note" data-position="3"></button>
+      <button class="note" data-position="4"></button>
+      <button class="note" data-position="5"></button>
+      <button class="note" data-position="6"></button>
+      <button class="note" data-position="7"></button>
+      <button class="note" data-position="8"></button>
+      <button class="note" data-position="9"></button>
+      <button class="note" data-position="10"></button>
+      <button class="note" data-position="11"></button>
+      <button class="note" data-position="12"></button>
+      <button class="note" data-position="13"></button>
+      <button class="note" data-position="14"></button>
+      <button class="note" data-position="15"></button>
+      <button class="note" data-position="16"></button>
+    </div>
+    <div class="note-row" data-note="2">
+      <button class="note" data-position="1"></button>
+      <button class="note" data-position="2"></button>
+      <button class="note" data-position="3"></button>
+      <button class="note" data-position="4"></button>
+      <button class="note" data-position="5"></button>
+      <button class="note" data-position="6"></button>
+      <button class="note" data-position="7"></button>
+      <button class="note" data-position="8"></button>
+      <button class="note" data-position="9"></button>
+      <button class="note" data-position="10"></button>
+      <button class="note" data-position="11"></button>
+      <button class="note" data-position="12"></button>
+      <button class="note" data-position="13"></button>
+      <button class="note" data-position="14"></button>
+      <button class="note" data-position="15"></button>
+      <button class="note" data-position="16"></button>
+    </div>
+    <div class="note-row" data-note="1">
+      <button class="note" data-position="1"></button>
+      <button class="note" data-position="2"></button>
+      <button class="note" data-position="3"></button>
+      <button class="note" data-position="4"></button>
+      <button class="note" data-position="5"></button>
+      <button class="note" data-position="6"></button>
+      <button class="note" data-position="7"></button>
+      <button class="note" data-position="8"></button>
+      <button class="note" data-position="9"></button>
+      <button class="note" data-position="10"></button>
+      <button class="note" data-position="11"></button>
+      <button class="note" data-position="12"></button>
+      <button class="note" data-position="13"></button>
+      <button class="note" data-position="14"></button>
+      <button class="note" data-position="15"></button>
+      <button class="note" data-position="16"></button>
+    </div>
+  </div>
+
 
   <div class="footer">
     <a href="http://www.gregsantulli.com">www.gregsantulli.com</a>
-
-
   </div>
 
 
