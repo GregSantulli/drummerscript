@@ -37,13 +37,17 @@ var allSounds = {
   kickLo: new Audio('kickLo', 'sounds/KICK-LO.wav'),
 }
 
-var tempo = 95;
-var rhythmIndex = 1;
-var playing = false;
-var sixteenthNoteTime;
-var timer;
-var gate = 1;
-var noteGain = .1;
+var tempo = 95
+    , rhythmIndex = 1
+    , playing = false
+    , sixteenthNoteTime
+    , timer
+    , gate = 1
+    , noteGain = .1
+    , playing
+    , mouseDown
+    , paintState
+    , arpShape = "sawtooth"
 
 
 var arp = {
@@ -62,7 +66,6 @@ var arp = {
  13: {},
 };
 
-var arpShape = "sawtooth"
 
 var scale = {
   1: 261.63,
@@ -82,8 +85,6 @@ var scale = {
 
 
 
-
-
 function loadAllSounds(){
   for (sound in allSounds) {
     allSounds[sound].loadSound()
@@ -99,9 +100,6 @@ function playSound(audio){
   var trackLabel = $('.instrument_label.'+audio.name).parent()
   animateElement(trackLabel)
 }
-
-var playing;
-
 
 
 function play(){
@@ -141,12 +139,10 @@ function playCurrentIndex(){
 };
 
 function movePlayhead(index){
-  $('.bar').css({
-    'background-color':'',
-  });
-  $('#'+ index).css({
-    'background-color':'red',
-  });
+  $('.bar').removeClass('active')
+  $('#'+ index).addClass('active')
+  $('.pad').css('box-shadow', '')
+  $('.pad.' + index).css('box-shadow', '0px 0px 5px #ff4d2d')
 }
 
 
@@ -182,7 +178,8 @@ function stopSequence(){
   clearTimeout(timer)
   playing = false
   rhythmIndex = 1
-  $('.bar').css('background-color','');
+  $('.bar').removeClass('active');
+  $('.pad').css('box-shadow', '')
   toggleButton()
 };
 
@@ -246,19 +243,44 @@ function trashButtonListener(){
 
 
 function padClickListener(){
-  $('div.pad').on('click', function(){
-    var elem = $(this)
-    var sound = elem.attr('id')
-    var position = elem.attr("value")
-    var state = allSounds[sound].pattern[position]
-    clearTimeout($(this).timeout)
-    if (state){
-      elem.removeClass('active')
-    } else {
-      elem.addClass('active')
-    }
-    allSounds[sound].pattern[position] = !state
+  $('div.pad').on('mousedown', function(){
+    mouseDown = true
+    paintState = !getStateFromElement(this)
+    changeState(this, paintState)
   });
+}
+
+
+function mouseOverEvent(e){
+  var element = e.target
+  if (mouseDown && (getStateFromElement(element) != paintState)) {
+    changeState(element, paintState)
+  }
+}
+
+function getStateFromElement(element){
+  var elem = $(element)
+  var sound = elem.attr('id')
+  var position = elem.attr("value")
+  return !!allSounds[sound].pattern[position]
+}
+
+function changeState(element, state){
+  var elem = $(element)
+  var sound = elem.attr('id')
+  var position = elem.attr("value")
+  clearTimeout($(this).timeout)
+  if (!state){
+    elem.removeClass('active')
+  } else {
+    elem.addClass('active')
+  }
+  allSounds[sound].pattern[position] = state
+
+}
+
+function dragListener(){
+
 }
 
 function animateElement(elem){
@@ -446,6 +468,8 @@ function buildBoard(){
   buildPads();
 };
 
+
+
 function initializeControls(){
   playButtonListener();
   stopButtonListener();
@@ -460,6 +484,10 @@ function initializeControls(){
   arpShapeListener()
   resizePads()
   resizeListener()
+  $('.pad').on('mouseover', mouseOverEvent)
+  $(window).on('mouseup', function(){
+    mouseDown = false
+  })
 };
 
 
@@ -468,7 +496,6 @@ function start(){
   loadAllSounds();
   initializeControls();
   setInitialPattern();
-  setArpPattern();
 }
 
 $(document).ready(function() {

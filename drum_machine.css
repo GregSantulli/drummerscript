@@ -1,27 +1,18 @@
 
 body{
   -webkit-font-smoothing:antialiased;
-  /*background-color: #efeff2;*/
-  background: #363636;
-  background: -webkit-radial-gradient(#6e6e6e, #363636); /* Safari 5.1 to 6.0 */
-  background: -o-radial-gradient(#6e6e6e, #363636); /* For Opera 11.6 to 12.0 */
-  background: -moz-radial-gradient(#6e6e6e, #363636); /* For Firefox 3.6 to 15 */
-  background: radial-gradient(#6e6e6e, #363636); /* Standard syntax */
+  background-color: white;
 }
 
 
 .pad_container {
-  /*border: 2px solid #dadae3;*/
   background: transparent;
-  /*border-style: outset;*/
-  /*border-radius: 10px;*/
   padding: 10px;
   overflow: hidden;
   max-width: 1200px;
   margin: auto;
   margin-top: 20px;
   text-align: left;
-  /*box-shadow: 10px 10px 20px gray;*/
 
 }
 
@@ -37,15 +28,16 @@ body{
   display: inline-block;
   width: 5.75%;
   height: 60px;
-  border-radius: 2px;
+  border-radius: 50%;
   margin-bottom: 0px;
   margin-left: 0.5%;
   background-color: white;
   border: 1px solid #ccc;
   float: left;
+  cursor: pointer;
 }
 .bar {
-  color: white;
+  color: black;
   display: inline-block;
   width: 6.25%;
   height: 30px;
@@ -68,6 +60,11 @@ body{
   width: 1px;
 }
 
+.current-index{
+  color: red;
+  color: white
+}
+
 
 .instrument_label {
   display:inline-block;
@@ -75,14 +72,16 @@ body{
   vertical-align: top;
   width: 100%;
   border-radius: 2px;
-  text-align: center;
+  text-align: right;
   height: 30px;
   line-height: 30px;
   border: 0px;
+  padding-right: 10%;
 }
 
 .instrument_row .btn-default{
   padding: 0px;
+  padding-right: 10%;
 }
 
 .instrument_row{
@@ -98,9 +97,6 @@ body{
   width: 90%;
   height: 30px;
 
-
-
-
 }
 
 
@@ -112,7 +108,7 @@ body{
   float: left;
   background-color: white;
   border-radius: 2px;
-  border: 1px solid #ccc;
+  border: 0px solid #ccc;
 
 
 }
@@ -124,12 +120,9 @@ body{
   height: 800px;
   position: absolute;
   top: 0px;
-  /*right: 0px;*/
   margin-left: -938px;
 
-
 }
-
 
 
 .control {
@@ -138,23 +131,23 @@ body{
 }
 
 .active{
-    background: red; /* For browsers that do not support gradients */
-    background: -webkit-radial-gradient(#e0e8ff, #7a9cff); /* Safari 5.1 to 6.0 */
-    background: -o-radial-gradient(#e0e8ff, #7a9cff); /* For Opera 11.6 to 12.0 */
-    background: -moz-radial-gradient(#e0e8ff, #7a9cff); /* For Firefox 3.6 to 15 */
-    background: radial-gradient(#e0e8ff, #7a9cff); /* Standard syntax */
-
+  background: red; /* For browsers that do not support gradients */
+  background: -webkit-radial-gradient(#ff4d2d, white); /* Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(#ff4d2d, white); /* For Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(#ff4d2d, white); /* For Firefox 3.6 to 15 */
+  background: radial-gradient(#ff4d2d, white); /* Standard syntax */
+  color: white;
+  /*border: 0px;*/
 }
 
 
 .lit{
-
-    background: yellow; /* For browsers that do not support gradients */
-    background: -webkit-radial-gradient(yellow, #e0e8ff); /* Safari 5.1 to 6.0 */
-    background: -o-radial-gradient(yellow, #e0e8ff); /* For Opera 11.6 to 12.0 */
-    background: -moz-radial-gradient(yellow, #e0e8ff); /* For Firefox 3.6 to 15 */
-    background: radial-gradient(yellow, #e0e8ff); /* Standard syntax */
-
+  border: 0px;
+  background: yellow; /* For browsers that do not support gradients */
+  background: -webkit-radial-gradient(yellow, white); /* Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(yellow, white); /* For Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(yellow, white); /* For Firefox 3.6 to 15 */
+  background: radial-gradient(yellow, white); /* Standard syntax */
 }
 
 
@@ -194,6 +187,11 @@ body{
   text-align: center;
   margin-top: 30px;
   letter-spacing: 1px;
+
+}
+
+.footer a{
+  color: white;
 }
 
 .control .btn{
@@ -319,6 +317,9 @@ button.gate{
   margin-top: 10px;
 }
 
+.arppegiator {
+  display: none
+}
 
 .arp.controls{
   width: 100%;
@@ -338,14 +339,12 @@ button.gate{
   background-color: transparent;
 }
 
-
-
+button:focus:{
+  outline: 0;
+}
 
 @media (max-width: 1300px) {
   .github-ribbon {
     display: none;
   }
-}
-button:focus:{
-  outline: 0;
 }
