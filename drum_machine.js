@@ -55,20 +55,32 @@ var arp = {
  6: {},
  7: {},
  8: {},
+ 9: {},
+ 10: {},
+ 11: {},
+ 12: {},
+ 13: {},
 };
 
-arpShape = "square"
+var arpShape = "sawtooth"
 
 var scale = {
   1: 261.63,
-  2: 293.66,
-  3: 329.63,
-  4: 349.23,
-  5: 392.00,
-  6: 440.00,
-  7: 493.88,
-  8: 523.25,
+  2: 277.18,
+  3: 293.66,
+  4: 311.13,
+  5: 329.63,
+  6: 349.23,
+  7: 369.99,
+  8: 392.00,
+  9: 415.30,
+  10: 440.00,
+  11:466.16,
+  12: 493.88,
+  13: 523.25
 };
+
+
 
 
 
@@ -84,10 +96,11 @@ function playSound(audio){
   sound.buffer = audio.buffer;
   sound.connect(audio.gain);
   sound.start(0);
-  $('.instrument_label.'+audio.name).animate( { backgroundColor: "red" }, 0 )
-  .animate( { backgroundColor: "white" }, 100 );
-
+  var trackLabel = $('.instrument_label.'+audio.name).parent()
+  animateElement(trackLabel)
 }
+
+var playing;
 
 
 
@@ -95,6 +108,7 @@ function play(){
   if(!playing){
     loop();
     playing = true;
+    toggleButton()
   }else{
     rhythmIndex = 1
   }
@@ -119,9 +133,9 @@ function playCurrentIndex(){
       playSound(track)
     }
   }
-  $('.'+rhythmIndex+'.active')
-  .animate( { backgroundColor: "yellow" }, 0 )
-  .animate( { backgroundColor: "red" }, 500 );
+
+  var activePads =  $('.'+rhythmIndex+'.active')
+  animateElement(activePads)
   movePlayhead(rhythmIndex)
   progressRhythm()
 };
@@ -137,7 +151,7 @@ function movePlayhead(index){
 
 
 function playArp(){
-  for(i = 1; i < 9; i++){
+  for(i = 1; i < 14; i++){
     note = arp[i]
     if(note[rhythmIndex]){
       oscillator = context.createOscillator();
@@ -151,9 +165,9 @@ function playArp(){
       oscillator.stop(context.currentTime + (sixteenthNoteTime* gate))
     }
   }
-  $('.note.active[data-position="'+rhythmIndex+'"]')
-  .animate( { backgroundColor: "yellow" }, 0 )
-  .animate( { backgroundColor: "red" }, 500 );
+  var note = $('.note.active[data-position="'+rhythmIndex+'"]')
+  animateElement(note)
+
 }
 
 function progressRhythm(){
@@ -164,21 +178,29 @@ function progressRhythm(){
   }
 }
 
-function stop_sequence(){
+function stopSequence(){
   clearTimeout(timer)
   playing = false
   rhythmIndex = 1
   $('.bar').css('background-color','');
+  toggleButton()
 };
 
 
 
 function clearPads(){
+  stopSequence();
   for (audio in allSounds){
     allSounds[audio].pattern = {}
   }
-  $('div.pad').stop().css('background-color', 'white').removeClass('active');
-  stop_sequence();
+  $('div.pad').stop().css('background-color', 'white').removeClass('active lit');
+}
+
+function clearNotes(){
+  for (note in arp){
+    arp[note] = {}
+  }
+  $('.note').stop().css('background-color', 'white').removeClass('active lit');
 }
 
 
@@ -186,13 +208,28 @@ function clearPads(){
 
 function playButtonListener(){
   $('button.play').on('click', function(){
-    play();
+    if (playing){
+      stopSequence();
+    } else {
+      play();
+    }
   });
+}
+
+function toggleButton(){
+  var button = $('button.play')
+  if (!playing){
+    button.addClass('glyphicon-play btn-success')
+    button.removeClass('glyphicon-stop btn-danger')
+  } else {
+    button.addClass('glyphicon-stop btn-danger')
+    button.removeClass('glyphicon-play btn-success')
+  }
 }
 
 function stopButtonListener(){
   $('button.stop').on('click', function(){
-    stop_sequence();
+
   });
 };
 
@@ -202,6 +239,7 @@ function trashButtonListener(){
     var prompt = confirm("Clear your current pattern?");
     if (prompt == true) {
       clearPads();
+      clearNotes();
     }
   })
 }
@@ -209,19 +247,25 @@ function trashButtonListener(){
 
 function padClickListener(){
   $('div.pad').on('click', function(){
-    var sound = $(this).attr('id')
-    var position = $(this).attr("value")
-
-    if ($(this).hasClass('active')){
-      $(this).removeClass('active')
-      $(this).css('background-color', 'white')
-      allSounds[sound].pattern[position] = false
+    var elem = $(this)
+    var sound = elem.attr('id')
+    var position = elem.attr("value")
+    var state = allSounds[sound].pattern[position]
+    clearTimeout($(this).timeout)
+    if (state){
+      elem.removeClass('active')
     } else {
-      $(this).addClass('active')
-      $(this).css('background-color', 'red')
-      allSounds[sound].pattern[position] = true
+      elem.addClass('active')
     }
+    allSounds[sound].pattern[position] = !state
   });
+}
+
+function animateElement(elem){
+  elem.addClass('lit')
+  elem.timeout =  setTimeout(function(){
+    elem.removeClass('lit')
+  }, 100)
 }
 
 
@@ -312,8 +356,9 @@ function arpPadListener(){
 }
 
 function arpGateListener(){
-  $("input.gate").on('input', function(){
+  $("input[name=gate]").on('input', function(){
     var newGate = $(this).val()
+    console.log(newGate)
     gate = newGate
   })
 }
@@ -326,14 +371,14 @@ function arpGainListener(){
 }
 
 function arpShapeListener(){
-  console.log($('button.gate'))
-  $('button.gate.btn').css("background-color", "white")
-  $('button.gate.btn[data-shape="square"]').css("background-color", "yellow")
-  $('button.gate.btn').on('click',function(){
-    $('button.gate.btn').css("background-color", "white")
-    $(this).css("background-color", "yellow")
-    newShape = $(this).attr('data-shape')
-    arpShape = newShape
+  $('.arp.controls.btn').on('click', function(){
+    $('.arp.controls.btn').removeClass('lit')
+    var button = $(this)
+    button.addClass('lit')
+    var shape = button.attr('data-shape')
+    arpShape = shape
+
+      console.log()
   })
 }
 
@@ -358,14 +403,14 @@ function setInitialPattern(){
 
 function setArpPattern(){
   arp[1] = {1: true, 5: true, 12: true}
-  arp[2] = {13: true}
-  arp[3] = {2: true, 4: true, 8: true, 10: true}
-  arp[4] = {5: true, 7: true}
-  arp[5] = {8: true, 10: true, 13: true}
-  arp[6] = {2: true, 5: true}
-  arp[7] = {13: true, 15: true}
-  arp[8] = {2: true, 8: true, 10: true, 16: true}
-  for (var i = 1; i <= 8; i++) {
+  arp[3] = {13: true}
+  arp[5] = {2: true, 4: true, 8: true, 10: true}
+  arp[6] = {5: true, 7: true}
+  arp[8] = {8: true, 10: true, 13: true}
+  arp[10] = {2: true, 5: true}
+  arp[12] = {13: true, 15: true}
+  arp[13] = {2: true, 8: true, 10: true, 16: true}
+  for (var i = 1; i <= 13; i++) {
     for (var j = 1; j <= 16; j++) {
       if (arp[i][j]){
         $('div.note-row[data-note="' + i + '"] button[data-position="' + j + '"]').addClass('active')
@@ -373,6 +418,24 @@ function setArpPattern(){
     };
   };
 
+}
+
+function resizeListener(){
+  window.onresize = resizePads
+}
+
+function resizePads(){
+  var pads = $('.pad')
+  var width = $(pads[0]).width()
+  $('.instrument_row').height(width)
+  $('.controls').height(width)
+  $('.instrument_label').height(width/2)
+  console.log($('.arppegiator').innerHeight())
+  $('.controls-container').height($('.arppegiator').height())
+  for (var i = 0; i < pads.length; i++) {
+    var pad = $(pads[i])
+    pad.height(width)
+  };
 }
 
 
@@ -395,6 +458,8 @@ function initializeControls(){
   arpGateListener();
   arpGainListener();
   arpShapeListener()
+  resizePads()
+  resizeListener()
 };
 
 

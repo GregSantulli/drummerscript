@@ -1,29 +1,59 @@
 
 body{
   -webkit-font-smoothing:antialiased;
-  background-color: #efeff2;
+  /*background-color: #efeff2;*/
+  background: #363636;
+  background: -webkit-radial-gradient(#6e6e6e, #363636); /* Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(#6e6e6e, #363636); /* For Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(#6e6e6e, #363636); /* For Firefox 3.6 to 15 */
+  background: radial-gradient(#6e6e6e, #363636); /* Standard syntax */
 }
+
+
+.pad_container {
+  /*border: 2px solid #dadae3;*/
+  background: transparent;
+  /*border-style: outset;*/
+  /*border-radius: 10px;*/
+  padding: 10px;
+  overflow: hidden;
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 20px;
+  text-align: left;
+  /*box-shadow: 10px 10px 20px gray;*/
+
+}
+
+
+.pad_row{
+  margin: 0px;
+  display:  inline-block;
+  width: 90%
+}
+
 
 .pad {
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: 5.75%;
+  height: 60px;
   border-radius: 2px;
   margin-bottom: 0px;
-  margin-left: 6px;
+  margin-left: 0.5%;
   background-color: white;
-  border: 1px solid #ccc
+  border: 1px solid #ccc;
+  float: left;
 }
 .bar {
+  color: white;
   display: inline-block;
-  width: 30px;
+  width: 6.25%;
   height: 30px;
   line-height: 30px;
   vertical-align: middle;
   text-align: center;
   border-radius: 2px;
-  margin-left: 6px;
-  margin-right: 0px;
+  margin-left: 0px;
   margin-bottom: 0px;
   float: right;
 }
@@ -31,48 +61,72 @@ body{
 .bar_line{
   position: relative;
   top: -30px;
-  left: -4px;
-  border-left: 1px solid gray;
-  border-right: 1px solid gray;
-  height: 346px;
+  left: 0px;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+  height: 30px;
   width: 1px;
 }
 
 
 .instrument_label {
   display:inline-block;
-  background-color: white;
+  background-color: transparent;
   vertical-align: top;
-  width: 100px;
+  width: 100%;
   border-radius: 2px;
   text-align: center;
   height: 30px;
   line-height: 30px;
-  margin-right: -4px;
+  border: 0px;
 }
 
 .instrument_row .btn-default{
   padding: 0px;
 }
 
+.instrument_row{
+  height: 60px;
+  margin-bottom: 7px;
+}
+
+
 .step_number_container{
+  display: block;
   margin-bottom: 5px;
+  margin-left: 10%;
+  width: 90%;
+  height: 30px;
+
+
+
 
 }
 
 
-.pad_container {
-  border: 2px solid #dadae3;
-  background-color: #e0e0e0;
-  border-style: outset;
-  border-radius: 10px;
-  padding: 10px;
-  overflow: hidden;
-  width: 850px;
-  margin: auto;
-  margin-top: 20px;
-  text-align: right;
-  box-shadow: 10px 10px 20px gray
+.controls{
+  width: 10%;
+  display: inline-block;
+  height: 60px;
+  text-align: center;
+  float: left;
+  background-color: white;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+
+
+}
+
+.wire{
+  display: inline-block;
+  background-color: blue;
+  width: 100px;
+  height: 800px;
+  position: absolute;
+  top: 0px;
+  /*right: 0px;*/
+  margin-left: -938px;
+
 
 }
 
@@ -84,7 +138,23 @@ body{
 }
 
 .active{
-  background-color: red
+    background: red; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(#e0e8ff, #7a9cff); /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(#e0e8ff, #7a9cff); /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(#e0e8ff, #7a9cff); /* For Firefox 3.6 to 15 */
+    background: radial-gradient(#e0e8ff, #7a9cff); /* Standard syntax */
+
+}
+
+
+.lit{
+
+    background: yellow; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(yellow, #e0e8ff); /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(yellow, #e0e8ff); /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(yellow, #e0e8ff); /* For Firefox 3.6 to 15 */
+    background: radial-gradient(yellow, #e0e8ff); /* Standard syntax */
+
 }
 
 
@@ -95,6 +165,7 @@ body{
   margin-top: 10px;
   text-align: center;
   letter-spacing: 1px;
+  height: 100px;
 }
 
 .tracks_header{
@@ -164,31 +235,28 @@ a, a:visited, a:link{
 
 
 form.gain{
-  margin-right: 10px;
-  margin-bottom: 5px;
   display: inline-block;
   height: 30px;
   line-height: 30px;
   vertical-align: middle;
-  width: 70px;
+  width: 80%;
   top: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 
 input.gain{
  line-height: 30px;
  vertical-align: middle;
+ height: 30px;
+ width: 100%;
 }
 
-.instrument_row{
-  height: 30px;
-  margin-bottom: 5px;
-}
 
-.pad_row{
-  margin: 0px;
-  display:  inline-block;
-}
+
+
 
 .volume_label{
   width: 80px;
@@ -204,25 +272,27 @@ input.gain{
 }
 
 button{
-  margin: 0px
+  text-align: center;
+}
+
+.note-row{
+  text-align: right;
+  margin-left: 10%;
+  width: 90%;
 }
 
 .note{
-  height: 20px;
-  width: 30px;
-  border: 1px solid #ccc;
+  height: 30px;
   display: inline-block;
+  width: 6%;
+  border-radius: 2px;
+  margin-bottom: 3px;
+  margin-left: 0.25%;
   background-color: white;
-  margin-left: 2px;
-  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  float: left;
 }
 
-input.note-gain, input.gate{
-  width: 100px;
-  display: inline-block;
-  float: left;
-  height: 20px;
-}
 
 .gate{
   float: left;
@@ -241,4 +311,41 @@ button.gate{
   padding:  0px;
   margin: 3px
   /*width: 50px;*/
+}
+
+.arp.controls input{
+  width: 90%;
+  margin: auto;
+  margin-top: 10px;
+}
+
+
+.arp.controls{
+  width: 100%;
+  min-height: 60px
+
+}
+.controls-container{
+  display: inline-block;
+  width: 10%;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.instrument_label.btn:hover{
+  background-color: transparent;
+}
+
+
+
+
+@media (max-width: 1300px) {
+  .github-ribbon {
+    display: none;
+  }
+}
+button:focus:{
+  outline: 0;
 }
